@@ -169,7 +169,7 @@ const MembershipCreate: React.FC<MembershipCreateProps> = ({
               placeholder="Member ID"
               value={memberId}
               onChange={(e) => setMemberId(e.target.value)}
-              className="border border-gray-600 bg-gray-700 p-2 rounded-md text-white"
+              className="border border-gray-600 bg-gray-700 p-2 rounded-md text-white h-10"
               required
               disabled={isEditing} 
             />
@@ -178,29 +178,9 @@ const MembershipCreate: React.FC<MembershipCreateProps> = ({
               placeholder="Member Name"
               value={memberName}
               onChange={(e) => setMemberName(e.target.value)}
-              className="border border-gray-600 bg-gray-700 p-2 rounded-md text-white"
+              className="border border-gray-600 bg-gray-700 p-2 rounded-md text-white h-10"
               required
             />
-            <select
-              value={membershipType}
-              onChange={(e) => setMembershipType(e.target.value)}
-              className="border border-gray-600 bg-gray-700 p-2 rounded-md text-white"
-              required
-            >
-              <option value="MONTHLY">Monthly</option>
-              <option value="QUARTERLY">Quarterly</option>
-              <option value="YEARLY">Yearly</option>
-            </select>
-            <div className="flex flex-col">
-              <label className="text-sm text-gray-300 mb-1">Start Date</label>
-              <input
-                type="date"
-                value={startDate}
-                onChange={(e) => setStartDate(e.target.value)}
-                className="border border-gray-600 bg-gray-700 p-2 rounded-md text-white"
-                required
-              />
-            </div>
             <div className="flex flex-col">
               <label className="text-sm text-gray-300 mb-1">End Date</label>
               <input
@@ -211,12 +191,32 @@ const MembershipCreate: React.FC<MembershipCreateProps> = ({
                 required
               />
             </div>
+            <div className="flex flex-col">
+              <label className="text-sm text-gray-300 mb-1">Start Date</label>
+              <input
+                type="date"
+                value={startDate}
+                onChange={(e) => setStartDate(e.target.value)}
+                className="border border-gray-600 bg-gray-700 p-2 rounded-md text-white h-10"
+                required
+              />
+            </div>
+            <select 
+              value={membershipType}
+              onChange={(e) => setMembershipType(e.target.value)}
+              className="border border-gray-600 bg-gray-700 p-2 rounded-md text-white h-10"
+              required
+            >
+              <option value="MONTHLY">Monthly</option>
+              <option value="QUARTERLY">Quarterly</option>
+              <option value="YEARLY">Yearly</option>
+            </select>
             <input
               type="number"
               placeholder="Amount Paid"
               value={amountPaid}
               onChange={(e) => setAmountPaid(e.target.value)}
-              className="border border-gray-600 bg-gray-700 p-2 rounded-md text-white"
+              className="border border-gray-600 bg-gray-700 p-2 rounded-md text-white h-10"
               required
             />
             <div className="flex flex-col">

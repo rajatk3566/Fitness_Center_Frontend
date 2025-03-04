@@ -93,12 +93,6 @@ const AdminHome: React.FC = () => {
       </h1>
       <div className="flex flex-wrap justify-center gap-3 w-full max-w-lg mb-6">
         <button
-          onClick={() => setActiveForm(activeForm === "member" ? "" : "member")}
-          className="px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600 transition"
-        >
-          Create Member
-        </button>
-        <button
           onClick={() =>
             setActiveForm(activeForm === "membership" ? "" : "membership")
           }

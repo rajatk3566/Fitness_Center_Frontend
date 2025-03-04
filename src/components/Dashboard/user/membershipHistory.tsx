@@ -39,7 +39,6 @@ const MembershipHistoryComponent: React.FC = () => {
 
   useEffect(() => {
     if (!memberId) return;
-
     const fetchHistory = async () => {
       try {
         setLoading(true);
@@ -78,8 +77,9 @@ const MembershipHistoryComponent: React.FC = () => {
 
   if (loading) return <div className="text-center py-4">Loading...</div>;
   if (error) return <div className="text-red-500 py-4">{error}</div>;
+
   if (!memberId)
-    return <div className="text-red-500 py-4">No member found.</div>;
+      return <div  className="text-red-500 py-4">No member found.</div>;
   if (history.length === 0)
     return (
       <div className="text-center py-4">No renewal history available.</div>

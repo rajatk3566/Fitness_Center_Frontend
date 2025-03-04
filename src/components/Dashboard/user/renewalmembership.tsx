@@ -14,8 +14,6 @@ const MembershipRenewal = () => {
       const data = await getMembershipDetails();
       if (data[0]?.id) {
         setMembershipId(data[0].id);
-      } else {
-        setMessage("No active membership found.");
       }
     } catch (error) {
       setMessage(
@@ -46,9 +44,7 @@ const MembershipRenewal = () => {
         "Error in handleRenew:",
         error instanceof Error ? error.message : error
       );
-      setMessage(
-        error instanceof Error ? error.message : "Membership Not Found "
-      );
+      setMessage(error instanceof Error ? error.message : "Membership Not Found ");
     }
   };
 

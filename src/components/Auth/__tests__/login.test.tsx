@@ -26,9 +26,7 @@ describe("Login Component", () => {
         <Login />
       </MemoryRouter>
     );
-
     const loginButton = screen.getByRole("button", { name: /login/i });
-
     fireEvent.click(loginButton);
     alertMock.mockRestore();
   });
