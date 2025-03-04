@@ -1,9 +1,7 @@
 import MembershipRenewal from "@components/Dashboard/user/renewalmembership";
 import MembershipHistoryComponent from "@components/Dashboard/user/membershipHistory";
 
-
 const UserHome = () => {
-
   const handleLogout = () => {
     localStorage.removeItem("token");
     window.location.href = "/login";
@@ -20,11 +18,13 @@ const UserHome = () => {
           Logout
         </button>
       </div>
-      
-      <h1 className="text-2xl font-bold mb-4 text-center text-white">User Dashboard</h1>
 
-      <MembershipRenewal  />
-      <MembershipHistoryComponent/>
+      <h1 className="text-2xl font-bold mb-4 text-center text-white">
+        User Dashboard
+      </h1>
+
+      <MembershipRenewal />
+      <MembershipHistoryComponent />
     </div>
   );
 };

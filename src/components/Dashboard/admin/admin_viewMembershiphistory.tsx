@@ -62,26 +62,18 @@ const AdminViewMembershipHistory: React.FC = () => {
 
   return (
     <div className="p-4 md:p-10 text-white bg-gray-900 min-h-screen">
-      <h2 className="text-xl md:text-2xl font-semibold mb-4">Membership Renewal History</h2>
+      <h2 className="text-xl md:text-2xl font-semibold mb-4">
+        Membership Renewal History
+      </h2>
       <div className="overflow-x-auto">
         <table className="min-w-full border-collapse border border-gray-300 text-white">
-          <thead >
+          <thead>
             <tr>
-              <th className="border border-gray-300 p-2">
-                Date Renewed
-              </th>
-              <th className="border border-gray-300 p-2">
-                Previous End Date
-              </th>
-              <th className="border border-gray-300 p-2">
-                New End Date
-              </th>
-              <th className="border border-gray-300 p-2">
-                Renewal Type
-              </th>
-              <th className="border border-gray-300 p-2">
-                Amount Paid
-              </th>
+              <th className="border border-gray-300 p-2">Date Renewed</th>
+              <th className="border border-gray-300 p-2">Previous End Date</th>
+              <th className="border border-gray-300 p-2">New End Date</th>
+              <th className="border border-gray-300 p-2">Renewal Type</th>
+              <th className="border border-gray-300 p-2">Amount Paid</th>
             </tr>
           </thead>
           <tbody>

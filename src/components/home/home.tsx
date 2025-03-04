@@ -50,15 +50,51 @@ const Home: React.FC = () => {
           Gallery
         </h2>
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
-          <img src={img1} alt="Gallery 1" className="w-full rounded-lg shadow-lg" />
-          <img src={img2} alt="Gallery 2" className="w-full rounded-lg shadow-lg" />
-          <img src={img3} alt="Gallery 3" className="w-full rounded-lg shadow-lg" />
-          <img src={img4} alt="Gallery 4" className="w-full rounded-lg shadow-lg" />
-          <img src={img5} alt="Gallery 5" className="w-full rounded-lg shadow-lg" />
-          <img src={img6} alt="Gallery 6" className="w-full rounded-lg shadow-lg" />
-          <img src={img7} alt="Gallery 7" className="w-full rounded-lg shadow-lg" />
-          <img src={img8} alt="Gallery 8" className="w-full rounded-lg shadow-lg" />
-          <img src={img9} alt="Gallery 9" className="w-full rounded-lg shadow-lg" />
+          <img
+            src={img1}
+            alt="Gallery 1"
+            className="w-full rounded-lg shadow-lg"
+          />
+          <img
+            src={img2}
+            alt="Gallery 2"
+            className="w-full rounded-lg shadow-lg"
+          />
+          <img
+            src={img3}
+            alt="Gallery 3"
+            className="w-full rounded-lg shadow-lg"
+          />
+          <img
+            src={img4}
+            alt="Gallery 4"
+            className="w-full rounded-lg shadow-lg"
+          />
+          <img
+            src={img5}
+            alt="Gallery 5"
+            className="w-full rounded-lg shadow-lg"
+          />
+          <img
+            src={img6}
+            alt="Gallery 6"
+            className="w-full rounded-lg shadow-lg"
+          />
+          <img
+            src={img7}
+            alt="Gallery 7"
+            className="w-full rounded-lg shadow-lg"
+          />
+          <img
+            src={img8}
+            alt="Gallery 8"
+            className="w-full rounded-lg shadow-lg"
+          />
+          <img
+            src={img9}
+            alt="Gallery 9"
+            className="w-full rounded-lg shadow-lg"
+          />
         </div>
       </section>
     </div>

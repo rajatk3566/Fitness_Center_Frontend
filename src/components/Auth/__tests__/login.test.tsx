@@ -1,8 +1,8 @@
-import { describe, test, expect, vi } from "vitest"; 
+import { describe, test, expect, vi } from "vitest";
 import { render, screen, fireEvent } from "@testing-library/react";
 import { MemoryRouter } from "react-router-dom";
 import Login from "@components/Auth/login";
-import "@testing-library/jest-dom/vitest"; 
+import "@testing-library/jest-dom/vitest";
 
 describe("Login Component", () => {
   test("renders login form", () => {
@@ -18,9 +18,8 @@ describe("Login Component", () => {
     expect(screen.getByPlaceholderText("Password")).toBeInTheDocument();
   });
 
-
   test("shows alert on login error", async () => {
-    const alertMock = vi.spyOn(window, "alert").mockImplementation(() => {}); 
+    const alertMock = vi.spyOn(window, "alert").mockImplementation(() => {});
 
     render(
       <MemoryRouter>
@@ -31,8 +30,6 @@ describe("Login Component", () => {
     const loginButton = screen.getByRole("button", { name: /login/i });
 
     fireEvent.click(loginButton);
-    alertMock.mockRestore(); 
+    alertMock.mockRestore();
   });
-
-  
 });

@@ -65,7 +65,7 @@ const MembershipList: React.FC = () => {
 
   const handleEditSuccess = () => {
     setEditingId(null);
-    fetchMemberships(); // Refresh the list after successful update
+    fetchMemberships();
   };
 
   return (

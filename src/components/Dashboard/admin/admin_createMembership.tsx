@@ -1,23 +1,22 @@
-
-import { useState, useEffect } from "react"
-import axios from "axios"
+import { useState, useEffect } from "react";
+import axios from "axios";
 
 interface MembershipData {
-  id?: number
-  member: string
-  member_name: string
-  membership_type: string
-  start_date: string
-  end_date: string
-  amount_paid: string
-  payment_date?: string
+  id?: number;
+  member: string;
+  member_name: string;
+  membership_type: string;
+  start_date: string;
+  end_date: string;
+  amount_paid: string;
+  payment_date?: string;
 }
 
 interface MembershipCreateProps {
-  isEditing?: boolean
-  membershipData?: MembershipData
-  onSubmitSuccess?: () => void
-  onCancel?: () => void
+  isEditing?: boolean;
+  membershipData?: MembershipData;
+  onSubmitSuccess?: () => void;
+  onCancel?: () => void;
 }
 
 const MembershipCreate: React.FC<MembershipCreateProps> = ({
@@ -26,66 +25,65 @@ const MembershipCreate: React.FC<MembershipCreateProps> = ({
   onSubmitSuccess,
   onCancel,
 }) => {
-  const [memberId, setMemberId] = useState<string>("")
-  const [memberName, setMemberName] = useState<string>("")
-  const [membershipType, setMembershipType] = useState<string>("MONTHLY")
-  const [startDate, setStartDate] = useState<string>("")
-  const [endDate, setEndDate] = useState<string>("")
-  const [amountPaid, setAmountPaid] = useState<string>("")
-  const [paymentDate, setPaymentDate] = useState<string>("")
-  const [loading, setLoading] = useState<boolean>(false)
-  const [error, setError] = useState<string>("")
-  const [successMessage, setSuccessMessage] = useState<string>("")
+  const [memberId, setMemberId] = useState<string>("");
+  const [memberName, setMemberName] = useState<string>("");
+  const [membershipType, setMembershipType] = useState<string>("MONTHLY");
+  const [startDate, setStartDate] = useState<string>("");
+  const [endDate, setEndDate] = useState<string>("");
+  const [amountPaid, setAmountPaid] = useState<string>("");
+  const [paymentDate, setPaymentDate] = useState<string>("");
+  const [loading, setLoading] = useState<boolean>(false);
+  const [error, setError] = useState<string>("");
+  const [successMessage, setSuccessMessage] = useState<string>("");
 
-  const API_BASE_URL = "http://localhost:8000/api"
+  const API_BASE_URL = "http://localhost:8000/api";
 
-  const getAccessToken = () => localStorage.getItem("token")
+  const getAccessToken = () => localStorage.getItem("token");
   const handleLogout = () => {
-    localStorage.removeItem("token")
-    window.location.href = "/login"
-  }
+    localStorage.removeItem("token");
+    window.location.href = "/login";
+  };
 
-  // Populate form fields when editing
   useEffect(() => {
     if (isEditing && membershipData) {
-      setMemberId(membershipData.member || "")
-      setMemberName(membershipData.member_name || "")
-      setMembershipType(membershipData.membership_type || "MONTHLY")
-      setStartDate(membershipData.start_date || "")
-      setEndDate(membershipData.end_date || "")
-      setAmountPaid(membershipData.amount_paid || "")
-      setPaymentDate(membershipData.payment_date || "")
+      setMemberId(membershipData.member || "");
+      setMemberName(membershipData.member_name || "");
+      setMembershipType(membershipData.membership_type || "MONTHLY");
+      setStartDate(membershipData.start_date || "");
+      setEndDate(membershipData.end_date || "");
+      setAmountPaid(membershipData.amount_paid || "");
+      setPaymentDate(membershipData.payment_date || "");
     }
-  }, [isEditing, membershipData])
+  }, [isEditing, membershipData]);
 
   const validateDates = () => {
     if (!startDate || !endDate) {
-      setError("Start Date and End Date are required.")
-      return false
+      setError("Start Date and End Date are required.");
+      return false;
     }
     if (new Date(startDate) >= new Date(endDate)) {
-      setError("End Date must be after Start Date.")
-      return false
+      setError("End Date must be after Start Date.");
+      return false;
     }
-    return true
-  }
+    return true;
+  };
 
   const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault()
-    setLoading(true)
-    setError("")
-    setSuccessMessage("")
+    e.preventDefault();
+    setLoading(true);
+    setError("");
+    setSuccessMessage("");
 
     if (!validateDates()) {
-      setLoading(false)
-      return
+      setLoading(false);
+      return;
     }
 
-    const token = getAccessToken()
+    const token = getAccessToken();
     if (!token) {
-      setError("Authentication token missing! Please log in.")
-      setLoading(false)
-      return
+      setError("Authentication token missing! Please log in.");
+      setLoading(false);
+      return;
     }
 
     const membershipPayload = {
@@ -96,13 +94,12 @@ const MembershipCreate: React.FC<MembershipCreateProps> = ({
       end_date: endDate,
       amount_paid: amountPaid,
       payment_date: paymentDate,
-    }
+    };
 
     try {
-      let response
+      let response;
 
       if (isEditing && membershipData?.id) {
-        // Update existing membership
         response = await axios.put(
           `${API_BASE_URL}/admin/memberships/${membershipData.id}/update/`,
           membershipPayload,
@@ -111,50 +108,53 @@ const MembershipCreate: React.FC<MembershipCreateProps> = ({
               "Content-Type": "application/json",
               Authorization: `Bearer ${token}`,
             },
-          },
-        )
-        setSuccessMessage("Membership updated successfully!")
+          }
+        );
+        setSuccessMessage("Membership updated successfully!");
       } else {
-        // Create new membership
-        response = await axios.post(`${API_BASE_URL}/admin/memberships/create/`, membershipPayload, {
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${token}`,
-          },
-        })
-        setSuccessMessage(response.data.message || "Membership created successfully!")
-
-        // Reset form after creation
+        response = await axios.post(
+          `${API_BASE_URL}/admin/memberships/create/`,
+          membershipPayload,
+          {
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: `Bearer ${token}`,
+            },
+          }
+        );
+        setSuccessMessage(
+          response.data.message || "Membership created successfully!"
+        );
         if (!isEditing) {
-          setMemberId("")
-          setMemberName("")
-          setMembershipType("MONTHLY")
-          setStartDate("")
-          setEndDate("")
-          setAmountPaid("")
-          setPaymentDate("")
+          setMemberId("");
+          setMemberName("");
+          setMembershipType("MONTHLY");
+          setStartDate("");
+          setEndDate("");
+          setAmountPaid("");
+          setPaymentDate("");
         }
       }
-
-      // Call the success callback if provided
       if (onSubmitSuccess) {
-        onSubmitSuccess()
+        onSubmitSuccess();
       }
     } catch (err) {
       if (axios.isAxiosError(err) && err.response) {
         if (err.response.status === 401) {
-          setError("Session expired. Please log in again.")
-          handleLogout()
+          setError("Session expired. Please log in again.");
+          handleLogout();
         } else {
-          setError(err.response.data.error || "An error occurred. Please try again.")
+          setError(
+            err.response.data.error || "An error occurred. Please try again."
+          );
         }
       } else {
-        setError("An unexpected error occurred")
+        setError("An unexpected error occurred");
       }
     } finally {
-      setLoading(false)
+      setLoading(false);
     }
-  }
+  };
 
   return (
     <div className="md:p-6">
@@ -171,7 +171,7 @@ const MembershipCreate: React.FC<MembershipCreateProps> = ({
               onChange={(e) => setMemberId(e.target.value)}
               className="border border-gray-600 bg-gray-700 p-2 rounded-md text-white"
               required
-              disabled={isEditing} // Disable member ID field when editing
+              disabled={isEditing} 
             />
             <input
               type="text"
@@ -236,7 +236,11 @@ const MembershipCreate: React.FC<MembershipCreateProps> = ({
               disabled={loading}
               className="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded-md transition duration-200"
             >
-              {loading ? "Processing..." : isEditing ? "Update Membership" : "Create Membership"}
+              {loading
+                ? "Processing..."
+                : isEditing
+                ? "Update Membership"
+                : "Create Membership"}
             </button>
             {isEditing && onCancel && (
               <button
@@ -249,12 +253,17 @@ const MembershipCreate: React.FC<MembershipCreateProps> = ({
             )}
           </div>
         </form>
-        {error && <div className="text-red-400 mt-4 text-sm md:text-base">{error}</div>}
-        {successMessage && <div className="text-green-400 mt-4 text-sm md:text-base">{successMessage}</div>}
+        {error && (
+          <div className="text-red-400 mt-4 text-sm md:text-base">{error}</div>
+        )}
+        {successMessage && (
+          <div className="text-green-400 mt-4 text-sm md:text-base">
+            {successMessage}
+          </div>
+        )}
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default MembershipCreate
-
+export default MembershipCreate;
