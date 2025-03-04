@@ -7,6 +7,7 @@ import AdminHome from "@src/components/Dashboard/admin/admin_dashboard";
 import UserHome from "@src/components/Dashboard/user/user_dashboard";
 import MembershipRenewal from "@components/Dashboard/user/renewalmembership";
 import AdminHistoryView from "@src/components/Dashboard/admin/admin_viewMembershiphistory";
+import Usermembership from "@src/components/Dashboard/user/usermembership"
 
 const AdminRoute: React.FC = () => {
   const navigate = useNavigate();
@@ -60,6 +61,7 @@ export const router = createBrowserRouter([
       },
 
       { path: "/membership/history", element: <AdminHistoryView /> },
+      { path: "/membershipshistory", element: <Usermembership /> },
     ],
   },
 ]);

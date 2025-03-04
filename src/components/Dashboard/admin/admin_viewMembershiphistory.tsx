@@ -3,7 +3,8 @@ import { getRenewHistory } from "@src/types/api";
 
 interface MembershipHistoryItem {
   id: number;
-  member: number;
+  member_id: number;
+  member_name: string; // ✅ Added this
   renewed_on: string;
   previous_end_date: string;
   new_end_date: string;
@@ -69,6 +70,7 @@ const AdminViewMembershipHistory: React.FC = () => {
         <table className="min-w-full border-collapse border border-gray-300 text-white">
           <thead>
             <tr>
+              <th className="border border-gray-300 p-2">Member Name</th> {/* ✅ Added */}
               <th className="border border-gray-300 p-2">Date Renewed</th>
               <th className="border border-gray-300 p-2">Previous End Date</th>
               <th className="border border-gray-300 p-2">New End Date</th>
@@ -79,6 +81,7 @@ const AdminViewMembershipHistory: React.FC = () => {
           <tbody>
             {history.map((item) => (
               <tr key={item.id} className="text-center bg-gray-800">
+                <td className="border border-gray-300 p-2">{item.member_name}</td> {/* ✅ Added */}
                 <td className="border border-gray-300 p-2">
                   {formatDate(item.renewed_on)}
                 </td>

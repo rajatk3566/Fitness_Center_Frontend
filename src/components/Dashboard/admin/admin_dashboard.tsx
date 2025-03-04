@@ -3,6 +3,7 @@ import axios from "axios";
 import MembershipCreate from "@src/components/Dashboard/admin/admin_createMembership";
 import MembershipList from "@src/components/Dashboard/admin/admin_membershiplist";
 import AdminviewMebershihistory from "@src/components/Dashboard/admin/admin_viewMembershiphistory";
+import Adminmembers from "@components/Dashboard/admin/admin_members";
 
 const AdminHome: React.FC = () => {
   const [firstName, setFirstName] = useState<string>("");
@@ -10,7 +11,7 @@ const AdminHome: React.FC = () => {
   const [error, setError] = useState<string>("");
   const [successMessage, setSuccessMessage] = useState<string>("");
   const [activeForm, setActiveForm] = useState<
-    "member" | "membership" | "viewMemberships" | "renewHistory" | ""
+    "member" | "membership" | "viewMemberships" | "renewHistory" | "members"|""
   >("");
 
   const API_BASE_URL = "http://localhost:8000/api";
@@ -118,6 +119,14 @@ const AdminHome: React.FC = () => {
         >
           Renew Memberships
         </button>
+        <button
+          onClick={() =>
+            setActiveForm(activeForm === "members" ? "" : "members")
+          }
+          className="px-4 py-2 bg-purple-500 text-white rounded-md hover:bg-purple-600 transition"
+        >
+          view Members
+        </button>
       </div>
       <div ref={formRef} className="w-full max-w-4xl">
         {activeForm === "member" && (
@@ -142,6 +151,7 @@ const AdminHome: React.FC = () => {
               >
                 {loading ? "Creating..." : "Create Member"}
               </button>
+              
             </form>
             {error && <div className="mt-2 text-red-500">{error}</div>}
             {successMessage && (
@@ -154,6 +164,7 @@ const AdminHome: React.FC = () => {
         )}
         {activeForm === "viewMemberships" && <MembershipList />}
         {activeForm === "renewHistory" && <AdminviewMebershihistory />}
+        {activeForm === "members" && <Adminmembers />}
       </div>
     </div>
   );
