@@ -6,9 +6,7 @@ import Registerpage from "@components/Auth/register";
 import AdminHome from "@src/components/Dashboard/admin/admin_dashboard";
 import UserHome from "@src/components/Dashboard/user/user_dashboard";
 import MembershipRenewal from "@components/Dashboard/user/renewalmembership";
-import AdminHistoryView  from "@src/components/Dashboard/admin/admin_viewMebershihistory";
-
-
+import AdminHistoryView from "@src/components/Dashboard/admin/admin_viewMembershiphistory";
 
 const AdminRoute: React.FC = () => {
   const navigate = useNavigate();
@@ -42,7 +40,6 @@ const UserRoute: React.FC = () => {
   return token && !isAdmin ? <Outlet /> : null;
 };
 
-
 export const router = createBrowserRouter([
   { path: "/", element: <HomePage /> },
   { path: "/login", element: <Loginpage /> },
@@ -56,10 +53,13 @@ export const router = createBrowserRouter([
     element: <UserRoute />,
     children: [
       { path: "/userhome", element: <UserHome /> },
-      
-      { path: "/membership/:membershipId/renew", element: <MembershipRenewal /> }, 
 
-      { path: "/membership/history", element: <AdminHistoryView /> }, 
+      {
+        path: "/membership/:membershipId/renew",
+        element: <MembershipRenewal />,
+      },
+
+      { path: "/membership/history", element: <AdminHistoryView /> },
     ],
   },
 ]);

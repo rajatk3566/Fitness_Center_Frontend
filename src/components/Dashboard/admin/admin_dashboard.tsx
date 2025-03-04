@@ -1,35 +1,37 @@
-import { useState, useEffect, useRef } from "react"
-import axios from "axios"
-import MembershipCreate from "@src/components/Dashboard/admin/admin_createMembership"
-import MembershipList from "@src/components/Dashboard/admin/admin_membershiplist"
-import AdminviewMebershihistory from "@src/components/Dashboard/admin/admin_viewMebershihistory"
+import { useState, useEffect, useRef } from "react";
+import axios from "axios";
+import MembershipCreate from "@src/components/Dashboard/admin/admin_createMembership";
+import MembershipList from "@src/components/Dashboard/admin/admin_membershiplist";
+import AdminviewMebershihistory from "@src/components/Dashboard/admin/admin_viewMembershiphistory";
 
 const AdminHome: React.FC = () => {
-  const [firstName, setFirstName] = useState<string>("")
-  const [loading, setLoading] = useState<boolean>(false)
-  const [error, setError] = useState<string>("")
-  const [successMessage, setSuccessMessage] = useState<string>("")
-  const [activeForm, setActiveForm] = useState<"member" | "membership" | "viewMemberships" | "renewHistory"| "">("")
+  const [firstName, setFirstName] = useState<string>("");
+  const [loading, setLoading] = useState<boolean>(false);
+  const [error, setError] = useState<string>("");
+  const [successMessage, setSuccessMessage] = useState<string>("");
+  const [activeForm, setActiveForm] = useState<
+    "member" | "membership" | "viewMemberships" | "renewHistory" | ""
+  >("");
 
-  const API_BASE_URL = "http://localhost:8000/api"
-  const getAccessToken = () => localStorage.getItem("token")
+  const API_BASE_URL = "http://localhost:8000/api";
+  const getAccessToken = () => localStorage.getItem("token");
 
   const handleLogout = () => {
-    localStorage.removeItem("token")
-    window.location.href = "/login"
-  }
+    localStorage.removeItem("token");
+    window.location.href = "/login";
+  };
 
   const handleCreateMember = async (e: React.FormEvent) => {
-    e.preventDefault()
-    setLoading(true)
-    setError("")
-    setSuccessMessage("")
+    e.preventDefault();
+    setLoading(true);
+    setError("");
+    setSuccessMessage("");
 
-    const token = getAccessToken()
+    const token = getAccessToken();
     if (!token) {
-      setError("Authentication token missing! Please log in.")
-      setLoading(false)
-      return
+      setError("Authentication token missing! Please log in.");
+      setLoading(false);
+      return;
     }
 
     try {
@@ -41,39 +43,39 @@ const AdminHome: React.FC = () => {
             "Content-Type": "application/json",
             Authorization: `Bearer ${token}`,
           },
-        },
-      )
+        }
+      );
 
-      setSuccessMessage(response.data.message)
-      setFirstName("")
+      setSuccessMessage(response.data.message);
+      setFirstName("");
     } catch (err) {
-      setError("An error occurred while creating the member.")
+      setError("An error occurred while creating the member.");
     } finally {
-      setLoading(false)
+      setLoading(false);
     }
-  }
+  };
 
-  const formRef = useRef<HTMLDivElement>(null)
+  const formRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
       if (formRef.current && !formRef.current.contains(event.target as Node)) {
-        setActiveForm("")
+        setActiveForm("");
       }
-    }
+    };
 
     if (activeForm) {
-      document.addEventListener("mousedown", handleClickOutside)
+      document.addEventListener("mousedown", handleClickOutside);
     } else {
-      document.removeEventListener("mousedown", handleClickOutside)
+      document.removeEventListener("mousedown", handleClickOutside);
     }
 
-    return () => document.removeEventListener("mousedown", handleClickOutside)
-  }, [activeForm])
+    return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, [activeForm]);
 
   const handleMembershipSuccess = () => {
-    setSuccessMessage("Membership operation completed successfully!")
-  }
+    setSuccessMessage("Membership operation completed successfully!");
+  };
 
   return (
     <div className="p-4 md:p-6 relative min-h-screen bg-gray-900 text-white flex flex-col items-center w-full max-w-7xl mx-auto">
@@ -86,7 +88,9 @@ const AdminHome: React.FC = () => {
           Logout
         </button>
       </div>
-      <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold mb-6 text-center mt-16 md:mt-0">Admin Dashboard</h1>
+      <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold mb-6 text-center mt-16 md:mt-0">
+        Admin Dashboard
+      </h1>
       <div className="flex flex-wrap justify-center gap-3 w-full max-w-lg mb-6">
         <button
           onClick={() => setActiveForm(activeForm === "member" ? "" : "member")}
@@ -95,30 +99,40 @@ const AdminHome: React.FC = () => {
           Create Member
         </button>
         <button
-          onClick={() => setActiveForm(activeForm === "membership" ? "" : "membership")}
+          onClick={() =>
+            setActiveForm(activeForm === "membership" ? "" : "membership")
+          }
           className="px-4 py-2 bg-green-500 text-white rounded-md hover:bg-green-600 transition"
         >
           Create Membership
         </button>
         <button
-          onClick={() => setActiveForm(activeForm === "viewMemberships" ? "" : "viewMemberships")}
+          onClick={() =>
+            setActiveForm(
+              activeForm === "viewMemberships" ? "" : "viewMemberships"
+            )
+          }
           className="px-4 py-2 bg-purple-500 text-white rounded-md hover:bg-purple-600 transition"
         >
           View Memberships
         </button>
         <button
-          onClick={() => setActiveForm(activeForm === "renewHistory" ? "" : "renewHistory")}
+          onClick={() =>
+            setActiveForm(activeForm === "renewHistory" ? "" : "renewHistory")
+          }
           className="px-4 py-2 bg-purple-500 text-white rounded-md hover:bg-purple-600 transition"
         >
           Renew Memberships
         </button>
-        
       </div>
       <div ref={formRef} className="w-full max-w-4xl">
         {activeForm === "member" && (
           <div className="bg-white shadow-md rounded-lg p-4 text-black">
             <h2 className="text-lg font-semibold mb-3">Create New Member</h2>
-            <form onSubmit={handleCreateMember} className="flex flex-col space-y-3">
+            <form
+              onSubmit={handleCreateMember}
+              className="flex flex-col space-y-3"
+            >
               <input
                 type="text"
                 value={firstName}
@@ -136,17 +150,19 @@ const AdminHome: React.FC = () => {
               </button>
             </form>
             {error && <div className="mt-2 text-red-500">{error}</div>}
-            {successMessage && <div className="mt-2 text-green-500">{successMessage}</div>}
+            {successMessage && (
+              <div className="mt-2 text-green-500">{successMessage}</div>
+            )}
           </div>
         )}
-        {activeForm === "membership" && <MembershipCreate onSubmitSuccess={handleMembershipSuccess} />}
+        {activeForm === "membership" && (
+          <MembershipCreate onSubmitSuccess={handleMembershipSuccess} />
+        )}
         {activeForm === "viewMemberships" && <MembershipList />}
         {activeForm === "renewHistory" && <AdminviewMebershihistory />}
-
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default AdminHome
-
+export default AdminHome;
