@@ -24,9 +24,9 @@ export const getMembershipDetails = async () => {
     }
 };
 
-export const getMembershipHistory = async (memberId: number) => {
+export const getMembershipHistory = async () => {
     try {
-        const response = await axios.get(`${API_URL}/memberships/history/${memberId}/`, { headers: getAuthHeaders() });
+        const response = await axios.get(`${API_URL}/memberships/history/`, { headers: getAuthHeaders() });
         return response.data;
     } catch (error: unknown) {
         throw axios.isAxiosError(error) ? error.response?.data || "Error fetching membership history" : "Unexpected error";
@@ -35,4 +35,11 @@ export const getMembershipHistory = async (memberId: number) => {
 
 
 
-
+export const getRenewHistory = async () => {
+    try {
+        const response = await axios.get(`${API_URL}/admin/history/`, { headers: getAuthHeaders() });
+        return response.data;
+    } catch (error: unknown) {
+        throw axios.isAxiosError(error) ? error.response?.data || "Error fetching membership history" : "Unexpected error";
+    }
+};

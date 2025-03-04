@@ -6,6 +6,7 @@ import Registerpage from "@components/Auth/register";
 import AdminHome from "@src/components/Dashboard/admin/admin_dashboard";
 import UserHome from "@src/components/Dashboard/user/user_dashboard";
 import MembershipRenewal from "@components/Dashboard/user/renewalmembership";
+import AdminHistoryView  from "@src/components/Dashboard/admin/admin_viewMebershihistory";
 
 
 
@@ -57,6 +58,8 @@ export const router = createBrowserRouter([
       { path: "/userhome", element: <UserHome /> },
       
       { path: "/membership/:membershipId/renew", element: <MembershipRenewal /> }, 
+
+      { path: "/membership/history", element: <AdminHistoryView /> }, 
     ],
   },
 ]);

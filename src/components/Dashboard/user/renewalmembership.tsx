@@ -46,7 +46,7 @@ const MembershipRenewal = () => {
         "Error in handleRenew:",
         error instanceof Error ? error.message : error
       );
-      setMessage(error instanceof Error ? error.message : "Unexpected error");
+      setMessage(error instanceof Error ? error.message : "Membership Not Found ");
     }
   };
 

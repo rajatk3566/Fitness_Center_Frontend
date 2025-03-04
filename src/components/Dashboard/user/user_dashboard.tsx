@@ -1,43 +1,8 @@
-import { useState, useEffect, useCallback } from "react";
-import { useNavigate } from "react-router-dom";
-import axios from "axios";
 import MembershipRenewal from "@components/Dashboard/user/renewalmembership";
 import MembershipHistoryComponent from "@components/Dashboard/user/membershipHistory";
 
 
 const UserHome = () => {
-  const navigate = useNavigate();
-  const [, setLoading] = useState<boolean>(false);
-  const [, setError] = useState<string | null>(null);
-
-  const fetchData = useCallback(async (token: string) => {
-    setLoading(true);
-    setError(null);
-    try {
-      const [] = await Promise.all([
-        axios.get("http://localhost:8000/api/members/", {
-          headers: { Authorization: `Bearer ${token}` },
-        }),
-        axios.get("http://localhost:8000/api/members/history/", {
-          headers: { Authorization: `Bearer ${token}` },
-        }),
-      ]);
-    } catch (error) {
-      setError("Failed to fetch data.");
-      console.error("Error fetching data:", error);
-    } finally {
-      setLoading(false);
-    }
-  }, []);
-
-  useEffect(() => {
-    const token = localStorage.getItem("token");
-    if (!token) {
-      navigate("/login"); // Redirect to login if no token
-      return;
-    }
-    fetchData(token);
-  }, [navigate, fetchData]);
 
   const handleLogout = () => {
     localStorage.removeItem("token");

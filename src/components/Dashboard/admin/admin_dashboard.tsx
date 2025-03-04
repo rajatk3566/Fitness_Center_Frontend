@@ -2,13 +2,14 @@ import { useState, useEffect, useRef } from "react"
 import axios from "axios"
 import MembershipCreate from "@src/components/Dashboard/admin/admin_createMembership"
 import MembershipList from "@src/components/Dashboard/admin/admin_membershiplist"
+import AdminviewMebershihistory from "@src/components/Dashboard/admin/admin_viewMebershihistory"
 
 const AdminHome: React.FC = () => {
   const [firstName, setFirstName] = useState<string>("")
   const [loading, setLoading] = useState<boolean>(false)
   const [error, setError] = useState<string>("")
   const [successMessage, setSuccessMessage] = useState<string>("")
-  const [activeForm, setActiveForm] = useState<"member" | "membership" | "viewMemberships" | "">("")
+  const [activeForm, setActiveForm] = useState<"member" | "membership" | "viewMemberships" | "renewHistory"| "">("")
 
   const API_BASE_URL = "http://localhost:8000/api"
   const getAccessToken = () => localStorage.getItem("token")
@@ -72,8 +73,6 @@ const AdminHome: React.FC = () => {
 
   const handleMembershipSuccess = () => {
     setSuccessMessage("Membership operation completed successfully!")
-    // Optionally switch to view memberships after creation
-    // setActiveForm("viewMemberships");
   }
 
   return (
@@ -107,6 +106,13 @@ const AdminHome: React.FC = () => {
         >
           View Memberships
         </button>
+        <button
+          onClick={() => setActiveForm(activeForm === "renewHistory" ? "" : "renewHistory")}
+          className="px-4 py-2 bg-purple-500 text-white rounded-md hover:bg-purple-600 transition"
+        >
+          Renew Memberships
+        </button>
+        
       </div>
       <div ref={formRef} className="w-full max-w-4xl">
         {activeForm === "member" && (
@@ -135,6 +141,8 @@ const AdminHome: React.FC = () => {
         )}
         {activeForm === "membership" && <MembershipCreate onSubmitSuccess={handleMembershipSuccess} />}
         {activeForm === "viewMemberships" && <MembershipList />}
+        {activeForm === "renewHistory" && <AdminviewMebershihistory />}
+
       </div>
     </div>
   )
