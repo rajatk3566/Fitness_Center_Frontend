@@ -1,9 +1,9 @@
 import { describe, it, expect, vi, beforeEach } from 'vitest'
-import { render, screen, waitFor ,within } from '@testing-library/react'
+import { render, screen, waitFor  } from '@testing-library/react'
 import MembershipHistoryComponent from '@components/Dashboard/user/membershipHistory'
 import { getMembershipHistory, getMembershipDetails } from '@src/types/api'
 
-// Mock the API functions
+
 vi.mock('@src/types/api', () => ({
   getMembershipHistory: vi.fn(),
   getMembershipDetails: vi.fn(),
@@ -15,28 +15,13 @@ describe('MembershipHistoryComponent', () => {
   })
 
   it('should show loading state initially', () => {
-    // Mock API calls to not resolve immediately
     vi.mocked(getMembershipDetails).mockImplementation(() => new Promise(() => {}))
     
     render(<MembershipHistoryComponent />)
     
     expect(screen.getByText('Loading...')).toBeInTheDocument()
   })
-
-  // it('should display error message when API call fails', async () => {
-  //   // Mock API call to fail
-  //   vi.mocked(getMembershipDetails).mockRejectedValue(new Error('API Error'))
-    
-  //   render(<MembershipHistoryComponent />)
-    
-  //   await waitFor(() => {
-  //     expect(screen.getByText('API Error')).toBeInTheDocument()
-  //   })
-  // })
-  
-
-
-  
+ 
 
   it('should display "No renewal history available" when history is empty', async () => {
     // Mock API calls
@@ -51,7 +36,6 @@ describe('MembershipHistoryComponent', () => {
   })
 
   it('should render membership history correctly', async () => {
-    // Mock API calls with sample data
     vi.mocked(getMembershipDetails).mockResolvedValue([{ member: 2 }])
     vi.mocked(getMembershipHistory).mockResolvedValue([
       {
@@ -77,14 +61,11 @@ describe('MembershipHistoryComponent', () => {
     render(<MembershipHistoryComponent />)
     
     await waitFor(() => {
-      // Check if the table headers are rendered
       expect(screen.getByText('Date Renewed')).toBeInTheDocument()
       expect(screen.getByText('Previous End Date')).toBeInTheDocument()
       expect(screen.getByText('New End Date')).toBeInTheDocument()
       expect(screen.getByText('Renewal Type')).toBeInTheDocument()
       expect(screen.getByText('Amount Paid')).toBeInTheDocument()
-      
-      // Check if the data is rendered correctly
       expect(screen.getByText('4 Months')).toBeInTheDocument()
       expect(screen.getByText('1 Month')).toBeInTheDocument()
       expect(screen.getByText('Rs 4000.00')).toBeInTheDocument()

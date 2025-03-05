@@ -21,7 +21,6 @@ const Login: React.FC = () => {
         password: formData.password,
       });
 
-      console.log("API Response:", response.data);
       localStorage.setItem("token", response.data.access || response.data.token);
       localStorage.setItem("is_admin", JSON.stringify(response.data.is_admin));
 

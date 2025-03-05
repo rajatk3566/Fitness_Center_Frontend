@@ -179,9 +179,7 @@ const MembershipCreate: React.FC<MembershipCreateProps> = ({
               value={memberName}
               onChange={(e) => setMemberName(e.target.value)}
               className="border border-gray-600 bg-gray-700 p-2 rounded-md text-white h-10"
-              required
             />
-           
             <div className="flex flex-col">
               <label className="text-sm text-gray-300 mb-1">Start Date</label>
               <input

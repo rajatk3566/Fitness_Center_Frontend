@@ -13,7 +13,6 @@ const UserHome = () => {
 
   return (
     <div className="p-6 max-w-4xl mx-auto">
-      {/* Logout Button */}
       <div className="absolute top-4 right-4 flex items-center space-x-4">
         <span className="text-lg font-semibold text-white">Welcome</span>
         <button
@@ -23,13 +22,9 @@ const UserHome = () => {
           Logout
         </button>
       </div>
-
-      {/* Dashboard Heading */}
       <h1 className="text-2xl font-bold mb-6 text-center text-white">
         User Dashboard
       </h1>
-
-      {/* Toggle Buttons */}
       <div className="flex justify-center space-x-4 mb-6">
         <button
           onClick={() => setSelectedComponent("membership")}
